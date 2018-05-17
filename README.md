@@ -19,6 +19,40 @@ Add the below line as todo and reload the page... boom!!!!
 ```
 </script><script>alert(1);</script>
 ```
+
+## Fix XSS issue
+
+
+#### Step 1:
+
+In ``package.json`` add following line ```"jsesc": "^2.3.0"``` in dependencies and do ```npm i```
+#### (OR)                                            
+Install ```jsec``` using ```npm install jsec```
+
+
+#### Step 2:
+
+In ```src/client.js``` replace ```const initialState = window.initialState || {};``` with ```const initialState = window.initialState && JSON.parse(window.initialState) || {};``` 
+
+
+#### Step 3:
+
+In ```src/server.js``` add following code under ```renderFullPage``` function
+
+```
+const initialStateJSON = escape( // So safe!
+		JSON.stringify(initialState),
+		{ wrap: true, isScriptContext: true, json: true }
+	);
+  
+```
+
+
+#### Step 4:
+
+In ```src/server.js``` replace ```window.initialState = ${JSON.stringify(initialState)}``` with ```window.initialState = ${initialStateJSON}```
+
+
 ## Changing the example
 
 If you are new to MobX, take a look at the [ten minutes, interactive introduction](https://mobxjs.github.io/mobx/getting-started.html) to MobX and React. MobX provides a refreshing way to manage your app state by combining mutable data structures with transparent reactive programming.
