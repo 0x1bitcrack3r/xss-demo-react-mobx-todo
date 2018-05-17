@@ -14,6 +14,11 @@ The example requires node 4.0 or higher
 
 ![TodoMVC](devtools.gif)
 
+## Testing XSS
+Add the below line as todo and reload the page... boom!!!!
+```
+</script><script>alert(1);</script>
+```
 ## Changing the example
 
 If you are new to MobX, take a look at the [ten minutes, interactive introduction](https://mobxjs.github.io/mobx/getting-started.html) to MobX and React. MobX provides a refreshing way to manage your app state by combining mutable data structures with transparent reactive programming.
