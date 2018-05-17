@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import escape from 'jsesc';
 
 // import { renderToString } from 'react-dom/server'
 //
@@ -23,10 +22,7 @@ app.use(webpackHotMiddleware(compiler));
 
 const renderFullPage = html => {
 	const initialState = { todos };
-	const initialStateJSON = escape( // So safe!
-		JSON.stringify(initialState),
-		{ wrap: true, isScriptContext: true, json: true }
-	);
+
 	return `
 	<!doctype html>
 	<html lang="utf-8">
@@ -34,7 +30,7 @@ const renderFullPage = html => {
 			<link rel="stylesheet" href="/node_modules/todomvc-common/base.css">
 			<link rel="stylesheet" href="/node_modules/todomvc-app-css/index.css">
 			<script>
-				window.initialState = ${initialStateJSON}
+				window.initialState = ${JSON.stringify(initialState)}
 			</script>
 		</head>
 		<body>
@@ -48,7 +44,7 @@ const renderFullPage = html => {
 			</footer>
 		</body>
 	</html>
-	`
+	`;
 };
 
 let todos = []; // Todos are stored here
