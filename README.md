@@ -27,7 +27,7 @@ Add the below line as todo and reload the page... boom!!!!
 
 In ``package.json`` add following line ```"jsesc": "^2.3.0"``` in dependencies and do ```npm i```
 #### (OR)                                            
-Install ```jsec``` using ```npm install jsec```
+Install ```jsesc``` using ```npm install jsesc```
 
 
 #### Step 2:
